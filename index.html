@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bike Showcase</title>
+    <style>
+        body {
+            font-family: 'Verdana', sans-serif;
+            background-color: #121212;
+            color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 10%;
+        }
+
+        *
+        {
+            margin: 0;
+            padding: 0;
+        }
+        .content {
+            text-align: center;
+            width: 90%;
+            max-width: 1200px;
+        }
+
+        .heading {
+            font-size: 28px;
+            margin-bottom: 40px;
+            letter-spacing: 2px;
+            color: #e0e0e0;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .card {
+            background-color: #282828;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            width: 300px;
+            position: relative;
+            transition: transform 0.4s, background-color 0.4s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            background-color: #333;
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            filter: brightness(0.85);
+        }
+
+        .card .details {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: #ffffff;
+            text-align: center;
+            padding: 10px;
+            font-size: 18px;
+            text-transform: uppercase;
+            transition: bottom 0.3s ease-in-out;
+        }
+
+        .card:hover .details {
+            bottom: 20%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <div class="heading">Discover Amazing Bikes</div>
+        <div class="container" id="card-container">
+        </div>
+    </div>
+
+    <script>
+        const bikes = [
+            { name: 'Harley-Davidson', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Harley-Davidson_Road_King_in_Switzerland_%282022%29.jpg/1024px-Harley-Davidson_Road_King_in_Switzerland_%282022%29.jpg', URL: 'https://en.wikipedia.org/wiki/Harley-Davidson' },
+            { name: 'Ducati Panigale V4', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Ducati_Panigale_V4_-_Tuning_World_Bodensee_2018%2C_Friedrichshafen_%28OW1A0484%29.jpg/450px-Ducati_Panigale_V4_-_Tuning_World_Bodensee_2018%2C_Friedrichshafen_%28OW1A0484%29.jpg', URL: 'https://en.wikipedia.org/wiki/Ducati_Panigale_V4' },
+            { name: 'Kawasaki Ninja', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Kawasaki_Ninja250.JPG/330px-Kawasaki_Ninja250.JPG', URL: 'https://en.wikipedia.org/wiki/Kawasaki_Ninja' },
+            { name: 'BMW S1000RR', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/BMW_S1000_RR_Studio.JPG/450px-BMW_S1000_RR_Studio.JPG', URL: 'https://en.wikipedia.org/wiki/BMW_S1000RR' },
+            { name: 'Yamaha YZF-R1', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/2015_Yamaha_YZF-R1_crop.JPG/450px-2015_Yamaha_YZF-R1_crop.JPG', URL: 'https://en.wikipedia.org/wiki/Yamaha_YZF-R1' },
+            { name: 'Suzuki Hayabusa', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/1999modelzwart.JPG/450px-1999modelzwart.JPG', URL: 'https://en.wikipedia.org/wiki/Suzuki_Hayabusa' },
+            { name: 'Triumph Bonneville', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/ZweiRadMuseumNSU_Triumph_Bonneville.JPG/450px-ZweiRadMuseumNSU_Triumph_Bonneville.JPG', URL: 'https://en.wikipedia.org/wiki/Triumph_Bonneville' },
+            { name: 'Honda CBR1000RR', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/CBR_1000_RR-R_SP_2020-mod-2022-12.jpg/450px-CBR_1000_RR-R_SP_2020-mod-2022-12.jpg', URL: 'https://en.wikipedia.org/wiki/Honda_CBR1000RR' },
+            { name: 'Royal Enfield Classic', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Royal_Enfield_Classic_350_%282017_Model_Year%29.jpg/600px-Royal_Enfield_Classic_350_%282017_Model_Year%29.jpg', URL: 'https://en.wikipedia.org/wiki/Royal_Enfield_Bullet' },
+            { name: 'KTM 390 Duke', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Ktm_duke_390.jpg/450px-Ktm_duke_390.jpg', URL: 'https://en.wikipedia.org/wiki/KTM_390_Duke' }
+        ];
+
+        const container = document.getElementById('card-container');
+
+        bikes.forEach(bike => {
+            const card = document.createElement('div');
+            card.className = 'card';
+
+            const img = document.createElement('img');
+            img.src = bike.image;
+            img.alt = bike.name;
+            card.appendChild(img);
+
+            const details = document.createElement('div');
+            details.className = 'details';
+            details.textContent = bike.name;
+            card.appendChild(details);
+
+            card.onclick = () => {
+                setTimeout(() => {
+                    window.location.href = bike.URL;
+                }, 200);
+            };
+
+            container.appendChild(card);
+        });
+    </script>
+</body>
+
+</html>
